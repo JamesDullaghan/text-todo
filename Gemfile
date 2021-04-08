@@ -12,7 +12,6 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'twilio-ruby', '~> 5.35.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'trestle'
 gem 'trestle-auth'

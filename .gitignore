@@ -115,5 +115,4 @@ javascript_legacy
 *.rdb
 .prettierignore
 *.mp3
-
 config/master.key
