@@ -16,9 +16,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bcrypt', '~> 3.1.7'
 gem 'trestle'
 gem 'trestle-auth'
+gem 'dotenv-rails'
 
 group :development, :test do
-  gem 'dotenv-rails'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
