@@ -1,20 +1,14 @@
-require 'uri'
-require 'net/http'
-require 'twilio-ruby'
-
 # Phone Number, Todos, Todo Item
 class TextMessagesController < ActionController::API
   def create
     begin
       url_params = request.body.read
 
-      service = ::SMSReceiverService.new(params: url_params)
+      service = ::SmsReceiverService.new(params: url_params)
       task_response_status, task_response = service.perform
 
       if task_response_status.eql?(200)
-        task_data = JSON.parse(task_response, quirks_mode: true)
-
-        render json: { success: true, data: task_data }, status: :ok
+        render json: { success: true, data: task_response }, status: :ok
       else
         render json: {
           success: false,

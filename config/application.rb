@@ -16,5 +16,9 @@ module TextTodo
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    %w[services].each do |dir|
+      config.autoload_paths << Rails.root.join('app', dir, '**/**/*.rb')
+    end
   end
 end

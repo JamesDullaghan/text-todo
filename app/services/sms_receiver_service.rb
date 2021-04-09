@@ -1,3 +1,6 @@
+require 'uri'
+require 'net/http'
+
 class SmsReceiverService
   attr_reader :params,
               :data,
@@ -5,7 +8,7 @@ class SmsReceiverService
 
   def initialize(params:)
     @params = params
-    @data = CGI::parse(url_params).deep_transform_keys! { |key| key.underscore.to_sym }
+    @data = CGI::parse(params).deep_transform_keys! { |key| key.underscore.to_sym }
     @message = data.fetch(:body, nil).fetch(0, nil)
   end
 
@@ -19,7 +22,7 @@ class SmsReceiverService
     # We want to connect to Todoist API
     raise StandardError, 'No project' if project_id.nil?
 
-    [task_response_status, task_response]
+    [task_response_status, parsed_task_response]
   end
 
   private
@@ -62,7 +65,7 @@ class SmsReceiverService
   end
 
   def projects_data
-    @_projects_data ||= JSON.parse(projects_response.read_body)
+    @_projects_data ||= JSON.parse(projects_response.body, quirks_mode: true)
   end
 
   def project
@@ -77,7 +80,7 @@ class SmsReceiverService
     @_project_id ||= project.first.fetch('id', nil)
   end
 
-  def tasks_request
+  def task_request
     task_request = Net::HTTP::Post.new(tasks_url)
     task_request["Content-Type"] = "application/json"
     task_request["Authorization"] = bearer_token
@@ -85,10 +88,14 @@ class SmsReceiverService
     @_task_request ||= task_request
   end
 
-  def tasks_response
+  def task_response
     https = Net::HTTP.new(tasks_url.host, tasks_url.port)
     https.use_ssl = true
     @_task_response ||= https.request(task_request)
+  end
+
+  def parsed_task_response
+    @_parsed_task_response ||= JSON.parse(task_response.body, quirks_mode: true)
   end
 
   def task_response_status
