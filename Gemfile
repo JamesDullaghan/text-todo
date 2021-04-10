@@ -17,6 +17,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'trestle'
 gem 'trestle-auth'
 gem 'dotenv-rails'
+gem 'devise'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -32,6 +33,8 @@ group :development do
 end
 
 group :test do
+  gem 'shoulda-matchers', '~> 4.0'
+  gem 'rspec-rails'
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'

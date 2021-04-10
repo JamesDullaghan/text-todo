@@ -8,16 +8,21 @@ class TextMessagesController < ActionController::API
       task_response_status, task_response = service.perform
 
       if task_response_status.eql?(200)
-        render json: { success: true, data: task_response }, status: :ok
+        render json: {
+          success: true,
+          data: task_response,
+        }, status: :ok
       else
         render json: {
           success: false,
-          message: 'Task not created. Something blue up and we ended up red',
+          message: ::I18n.t('sms.error'),
         }, status: :unprocessable_entity
       end
     rescue StandardError => e
       Rails.logger.info(e)
-      render json: { success: false }, status: :unprocessable_entity
+      render json: {
+        success: false,
+      }, status: :unprocessable_entity
     end
   end
 end

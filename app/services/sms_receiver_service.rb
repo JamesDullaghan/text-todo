@@ -2,13 +2,11 @@ require 'uri'
 require 'net/http'
 
 class SmsReceiverService
-  attr_reader :params,
-              :data,
-              :message
+  attr_reader :params, :data, :message
 
   def initialize(params:)
-    @params = params
-    @data = CGI::parse(params).deep_transform_keys! { |key| key.underscore.to_sym }
+    @params  = params
+    @data    = CGI::parse(params).deep_transform_keys! { |key| key.underscore.to_sym }
     @message = data.fetch(:body, nil).fetch(0, nil)
   end
 
@@ -18,10 +16,9 @@ class SmsReceiverService
   def perform
     raise StandardError, 'Message is empty' if message.blank?
     # Message comes in
-    #
     # We want to connect to Todoist API
     raise StandardError, 'No project' if project_id.nil?
-
+    binding.pry
     [task_response_status, parsed_task_response]
   end
 

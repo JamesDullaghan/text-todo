@@ -116,3 +116,5 @@ javascript_legacy
 .prettierignore
 *.mp3
 config/master.key
+# Ignore master key for decrypting credentials and more.
+/config/master.key
