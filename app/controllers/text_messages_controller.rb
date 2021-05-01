@@ -20,6 +20,7 @@ class TextMessagesController < ActionController::API
       end
     rescue StandardError => e
       Rails.logger.info(e)
+
       render json: {
         success: false,
       }, status: :unprocessable_entity
