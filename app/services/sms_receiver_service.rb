@@ -2,13 +2,10 @@ require 'uri'
 require 'net/http'
 
 class SmsReceiverService
-  attr_reader :params,
-              :data,
-              :message
+  attr_reader :params, :data, :message
 
   def initialize(params:)
-    @params = params
-    @data = CGI::parse(params).deep_transform_keys! { |key| key.underscore.to_sym }
+    @data  = params
     @message = data.fetch(:body, nil).fetch(0, nil)
   end
 
@@ -18,10 +15,9 @@ class SmsReceiverService
   def perform
     raise StandardError, 'Message is empty' if message.blank?
     # Message comes in
-    #
     # We want to connect to Todoist API
     raise StandardError, 'No project' if project_id.nil?
-
+    binding.pry
     [task_response_status, parsed_task_response]
   end
 
@@ -33,7 +29,6 @@ class SmsReceiverService
 
   def todoist_list_name
     @_todoist_list_name ||= Rails.application.secrets.todoist_list_name
-
   end
 
   def projects_url
@@ -85,12 +80,14 @@ class SmsReceiverService
     task_request["Content-Type"] = "application/json"
     task_request["Authorization"] = bearer_token
     task_request.body = { content: message, project_id: project_id }.to_json
+
     @_task_request ||= task_request
   end
 
   def task_response
     https = Net::HTTP.new(tasks_url.host, tasks_url.port)
     https.use_ssl = true
+
     @_task_response ||= https.request(task_request)
   end
 
