@@ -5,11 +5,22 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css' %>
+
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+
+    <%= javascript_include_tag 'application' %>
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js' %>
+    <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js' %>
   </body>
 </html>

@@ -1,3 +1,7 @@
 en:
+  todo_list:
+    create:
+      error: 'Unable to create the todo list'
   sms:
     error: 'Task not created. Something blue up and we ended up red'
+    invalid_number: 'Receiving number does not match twilio number!'

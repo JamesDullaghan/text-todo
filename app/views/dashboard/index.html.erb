@@ -1,0 +1,11 @@
+<% if todo_lists.any? %>
+  <%= render partial: 'todo_list', collection: todo_list, as: :todo_list %>
+<% else %>
+  <p class="lead">Nothing to see here yet!</p>
+
+  <%= form_with scope: :todo_list, url: todo_lists_path do |form| %>
+      <%= form.fields(:items, skip_id: true) do |fields| %>
+        No idea what goes here...
+      <% end %>
+  <% end %>
+<% end %>

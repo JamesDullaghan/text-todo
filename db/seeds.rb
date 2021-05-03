@@ -1,7 +1,17 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+email = 'admin@knucks.io'
+password = 'password'
+todoist_list_name = Rails.application.secrets.todoist_list_name
+todoist_auth_token = Rails.application.secrets.todoist_auth_token
+
+user = User.find_or_create_by!(email: email) do |record|
+  record.password = password
+  record.password_confirmation = password
+end
+
+todo_list = user.todo_lists.find_or_create_by!(name: todoist_list_name)
+
+todoist = todo_list.find_or_create_by!(auth_token: todoist_auth_token) do |record|
+  record.list_name = todoist_list_name
+end
+
+"User: #{user.email} : Todo List : #{todo_list.name} : Todoist : #{todoist.list_name}"

@@ -1,0 +1,7 @@
+<div class="media">
+  <div class="media-body">
+    <h5 class="mt-0"><%= todo_list.title %></h5>
+
+    <% render partial: 'todo_list_items', collection: todo_list.items, as: :todo_list_item %>
+  </div>
+</div>
