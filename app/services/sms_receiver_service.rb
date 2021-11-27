@@ -35,7 +35,7 @@ class SmsReceiverService
   #
   # @return [Array]
   def split_message
-    @_split_message ||= message.split(':')
+    @_split_message ||= message.split('|')
   end
 
   # Text Message Todos - A todo message here
@@ -57,7 +57,7 @@ class SmsReceiverService
   #
   # @return [String]
   def todoist_list_name
-    return parsed_list if parsed_list.present?
+    return parsed_list.strip if parsed_list.present? && parsed_list.size > 1
 
     Rails.application.secrets.todoist_list_name
   end
