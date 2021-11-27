@@ -23,5 +23,3 @@ export TODOIST_LIST_NAME="The list name of the list you wish to use"
 6. In production, switch the urls in Twilio to use the url of the production server instead of the ngrok url
 
 There may be more things, figure it out and send a PR to fix the readme!
-
-Dedicated to my good friend and confidant Omar El Mofty for helping me with Realvestor. Hopefully everyone makes millions in life and otherwise!
