@@ -1,5 +1,7 @@
 # Text Message TODO with Twilio and Todoist
 
+The readme was modified.
+
 This is some mock code thrown together in an hour or so to be able to create tasks from SMS message
 
 ### Setup
